@@ -1,0 +1,87 @@
+/*动态链表的创建，查找，插入，删除等操作 */ 
+
+#include<cstdio>
+using namespace std;
+struct node
+{
+	int data;
+	node *next;
+};
+node *create(int a[])
+{
+	node *head,*p,*pre;
+	head = new node;
+	head->next=NULL;
+	pre = head;
+	for(int i=0;i<5;i++)
+	{
+		p = new node;
+		p->data = a[i];
+		p->next = NULL;
+		pre->next = p;
+		pre = p;
+	}
+	return head;
+}
+
+void insert(node* head,int pos,int x)
+{
+	node *p=head;
+	for(int i=0;i<pos-1;i++)
+	{
+		p=p->next ;
+	}
+	node *q = new node;
+	q->data = x;
+	q->next = p->next ;
+	p->next =q;
+} 
+
+void del(node* head, int x)
+{
+	node *p=head->next ;
+	node *pre=head;
+	while(p!=NULL)
+	{
+		if(p->data == x)
+		{
+			pre->next =p->next ;
+			delete(p);
+			p=pre->next ;
+		}
+		else
+		{
+			pre=p;
+			p=p->next ;
+		}
+	}
+	
+}
+
+int search(node *head,int x)
+{
+	int count=0;
+	node *p=head->next ;
+	while(p!=NULL)
+	{
+		if(p->data==x) count++;
+		p=p->next ;
+	}
+	return count;
+}
+
+int main()
+{
+	int a[5]={1,2,3,4,5};
+	node *L=create(a);
+//	insert(L,3,6);
+//	del(L,1);
+//	int count =search(L,7);
+//	printf("%d\n" ,count);
+	L=L->next ;
+	while(L!= NULL)
+	{
+		printf("%d\n",L->data );
+		L=L->next ;
+	}
+}

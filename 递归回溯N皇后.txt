@@ -1,0 +1,41 @@
+#include<cstdio>
+#include<cstdlib>
+using namespace std;
+
+int n,a[100100]={},hashTable[100100]={};
+void queen(int index)
+{
+	if(index==n+1)
+	{
+		for(int i=1;i<=n;i++) printf("%d",a[i]);
+		printf("\n");
+		return;
+	}
+	//这里还能改进一下
+	for(int x=1;x<=n;x++)
+	{
+		int flag=1;
+		for(int i=1;i<=index;i++)
+		{
+			if(abs(index-i)==abs(x-a[i]))
+			{
+				flag=0;
+				break;
+			}
+			
+		}
+		if(flag&&!hashTable[x])
+		{
+			a[index]=x;
+			hashTable[x]=1;
+			queen(index+1);
+			hashTable[x]=0;
+		}
+	}
+}
+
+int main()
+{
+	scanf("%d",&n);
+	queen(1);
+}
