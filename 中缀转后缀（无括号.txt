@@ -1,0 +1,30 @@
+堆栈实现中缀表达式转后缀表达式（无括号
+
+#include<iostream>
+#include<stack>
+using namespace std;
+int main()
+{
+	stack<char> st;
+	string str;
+	cin>>str;
+	for(int i=0;i<str.size();i++)
+	{
+		if(str[i]<='9'&&str[i]>='0')
+			printf("%c",str[i]);
+		else
+		{
+			while(!st.empty()&&((st.top() =='*'||st.top() =='/')&&(str[i]=='+')||str[i]=='-')) 
+			{
+				printf("%c",st.top());
+				st.pop();
+			}
+			st.push(str[i]); 
+		}
+	}
+	while(!st.empty())
+	{
+		printf("%c",st.top() );
+		st.pop();
+	}
+}

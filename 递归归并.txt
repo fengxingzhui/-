@@ -1,0 +1,45 @@
+递归实现归并排序
+
+#include<cstdio>
+using namespace std;
+
+void merge(int a[],int left,int right)
+{
+	int i=left,mid=(left+right)/2,j=mid+1,k=0;
+	int tmp[100100]={};
+	while(i<=mid&&j<=right)
+	{
+		if(a[i]<a[j])
+			tmp[k++]=a[i++];
+		else
+			tmp[k++]=a[j++];
+	}
+	while(i<=mid)
+		tmp[k++]=a[i++];
+	while(j<=right)
+		tmp[k++]=a[j++];
+	for(int i=0;i<k;i++)
+		a[left+i]=tmp[i];
+}
+
+void merge_sort(int a[],int left,int right)
+{
+	if(left<right)
+	{
+		merge_sort(a,left,(left+right)/2);
+		merge_sort(a,(left+right)/2+1,right);
+		merge(a,left,right);
+	}
+	
+}
+int main()
+{
+	int N;
+	scanf("%d",&N);
+	int a[N]={};
+	for(int i=0;i<N;i++) scanf("%d",&a[i]);
+	
+	merge_sort(a,0,N-1);
+	
+	for(int i=0;i<N;i++) printf("%d",a[i]);
+} 
